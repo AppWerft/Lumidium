@@ -118,7 +118,7 @@ pages[2].image.addEventListener('click', function() {
 		view : win.image,
 		repo : 'AppWerft/Lumidium',
 		file : 'held0.png'
-	});
+	});      
 	win.imageindex = 0;
 	var cron = setInterval(function() {
 		win.imageindex++;
