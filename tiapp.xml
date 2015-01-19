@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ti:app xmlns:ti="http://ti.appcelerator.org">
+    <id>de.appwerft.lumidium</id>
+    <name>Lumidium</name>
+    <version>1.0.10</version>
+    <publisher>fuerst</publisher>
+    <url>http://</url>
+    <description>undefined</description>
+    <copyright>2015 by fuerst</copyright>
+    <icon>appicon.png</icon>
+    <fullscreen>true</fullscreen>
+    <navbar-hidden>true</navbar-hidden>
+    <analytics>false</analytics>
+    <guid>2fa98f30-55ae-41e4-83ea-0747e2ecc058</guid>
+    <property name="ti.ui.defaultunit" type="string">dp</property>
+    <property name="ti.android.licensing.key" type="string">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAj8jbff0/TZScU91FwfeSHVmfkeQbH92GwHC56oMpEM/5u9Jp7vNXAQQGaRoF6rw2rjnrez9TpiHpwC74GMeC3/MgSFvkJpg/67UCckm6u4fR1jdu4U3dTGX5+EotaA9oDdTHe/mEX52zZbOSyA07yWuCqC5ZHNSi8BtGSn8F44e7RcWzzNuV6XMWMN32pjslIkY/wPoRDe6lYm2ZmyAnhrer5UKbbTEdTD1HXc8ROUlRob40caHCq9O2NkZLJK2HZ+HPLs6PUa63hoKGE9iqVPes3iok0y9J1SI6k1fM/VcZDSy8IWmAyh/i4L/Agwu6uTepAb8lSSGGrPnDMA1gVwIDAQAB</property>
+    <property name="ti.android.licensing.salt" type="string"> [170,218,244,241,16,93,95,38,195,124,122,151,45,178,176,189,104,103,50,103]</property>
+    <ios>
+        <plist>
+            <dict>
+                <key>UISupportedInterfaceOrientations~iphone</key>
+                <array>
+                    <string>UIInterfaceOrientationPortrait</string>
+                </array>
+                <key>UISupportedInterfaceOrientations~ipad</key>
+                <array>
+                    <string>UIInterfaceOrientationPortrait</string>
+                    <string>UIInterfaceOrientationPortraitUpsideDown</string>
+                    <string>UIInterfaceOrientationLandscapeLeft</string>
+                    <string>UIInterfaceOrientationLandscapeRight</string>
+                </array>
+                <key>UIRequiresPersistentWiFi</key>
+                <false/>
+                <key>UIPrerenderedIcon</key>
+                <false/>
+                <key>UIStatusBarHidden</key>
+                <false/>
+                <key>UIStatusBarStyle</key>
+                <string>UIStatusBarStyleDefault</string>
+            </dict>
+        </plist>
+    </ios>
+    <android xmlns:android="http://schemas.android.com/apk/res/android">
+        <manifest android:versionCode="10" android:versionName="1.0.10">
+            <application android:theme="@style/Theme.Lumidium"/>
+            <uses-feature android:name="android.hardware.sensor.compass"/>
+        </manifest>
+    </android>
+    <modules>
+        <module platform="android">de.manumaticx.androidflip</module>
+        <module platform="android">ti.expansionfiles</module>
+        <module platform="android">titutorial.audiorecorder</module>
+        <module platform="android">com.alcoapps.actionbarextras</module>
+    </modules>
+    <deployment-targets>
+        <target device="android">true</target>
+        <target device="blackberry">false</target>
+        <target device="ipad">true</target>
+        <target device="iphone">true</target>
+        <target device="mobileweb">false</target>
+    </deployment-targets>
+    <sdk-version>3.5.0.GA</sdk-version>
+</ti:app>
