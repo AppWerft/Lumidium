@@ -27,19 +27,19 @@ module.exports = function() {
 		pages.push(require('page.widget')(item));
 	});
 	var FlipModule = require('de.manumaticx.androidflip');
-	var flipcontainer = FlipModule.createFlipView({
+	win.flipcontainer = FlipModule.createFlipView({
 		orientation : FlipModule.ORIENTATION_HORIZONTAL,
 		overFlipMode : FlipModule.OVERFLIPMODE_GLOW,
 		views : pages,
 		currentPage : 2,
 		height : Ti.UI.FILL,
 	});
-	win.add(flipcontainer);
-	flipcontainer.addEventListener('flipped', function(_e) {
-		Ti.App.Properties.setString('LAST', flipcontainer.currentPage);
+	win.add(win.flipcontainer);
+	win.flipcontainer.addEventListener('flipped', function(_e) {
+		Ti.App.Properties.setString('LAST', win.flipcontainer.currentPage);
 	});
 	var imageindex = 0;
-	flipcontainer.flipToView(Ti.App.Properties.hasProperty('LAST') ? Ti.App.Properties.getString('LAST') : 0);
+	win.flipcontainer.flipToView(Ti.App.Properties.hasProperty('LAST') ? Ti.App.Properties.getString('LAST') : 0);
 	setInterval(function() {
 		imageindex++;
 		imageindex %= 22;
