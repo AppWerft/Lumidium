@@ -21,7 +21,6 @@ module.exports = function(videoId, callback) {
 				var video = response.content.video;
 				if (videoId == video.encrypted_id) {
 					var streamurl = response.content.player_data.fmt_stream_map ? response.content.player_data.fmt_stream_map[0].url : response.content.player_data.stream_url;
-					console.log('Info: streamingURL='+streamurl);
 					callback({
 						streamurl : streamurl,
 						meta : video
