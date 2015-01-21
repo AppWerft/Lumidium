@@ -24,6 +24,9 @@ module.exports = function(_e) {
 				showAsAction : Ti.Android.SHOW_AS_ACTION_ALWAYS,
 			}).addEventListener("click", function(_e) {
 				torch.toggle();
+				Ti.UI.createNotification({
+					message : 'Licht sollte jetzt ' + (torch.isOn() ? 'an' : 'aus') + ' sein.'
+				}).show();
 			});
 			data.forEach(function(item, i) {
 				e.menu.add({
@@ -37,4 +40,4 @@ module.exports = function(_e) {
 			});
 		};
 	}
-}; 
+};
