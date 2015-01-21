@@ -8,6 +8,14 @@ module.exports = function() {
 	var ids = [];
 	var sections = [];
 	var data = require('vimeo.data');
+	require('vendor/remotexmljson')({
+		url : 'http://vimeo.com/lumidium/videos/rss',
+		onload : function(_e) {
+			console.log(_e);
+
+		}
+	});
+
 	for (key in data) {
 		var section = Ti.UI.createTableViewSection({
 			headerTitle : key
@@ -36,6 +44,7 @@ module.exports = function() {
 		var win = require('w')();
 		win.add(Ti.UI.createImageView({
 			image : _e.row.thumb,
+			zIndex : -1,
 			width : Ti.UI.FILL,
 			height : Ti.UI.FILL
 		}));
@@ -51,9 +60,6 @@ module.exports = function() {
 			if (webloaded)
 				return;
 			webloaded = true;
-			Ti.UI.createNotification({
-				message : 'Video on vimeo found.'
-			}).show();
 			var data_config_url = /data\-config\-url="(.*?)"/gm.exec(web.html);
 			win.remove(web);
 			web = null;
@@ -65,6 +71,13 @@ module.exports = function() {
 					}).show();
 					if (res.ok) {
 						try {
+							var bg = Ti.UI.createImageView({
+								image : _e.row.thumb,
+								width : Ti.UI.FILL,
+								height : Ti.UI.FILL,
+								zIndex : 9999
+							});
+							win.add(bg);
 							var video = JSON.parse(res.xhr.responseText).request.files.h264.sd.url;
 							var player = Ti.Media.createVideoPlayer({
 								autoplay : true,
@@ -72,12 +85,7 @@ module.exports = function() {
 								mediaControlStyle : Ti.Media.VIDEO_CONTROL_DEFAULT,
 								scalingMode : Ti.Media.VIDEO_SCALING_MODE_FILL
 							});
-							var bg = Ti.UI.createImageView({
-								image : _e.row.thumb,
-								width : Ti.UI.FILL,
-								height : Ti.UI.FILL,
-								zIndex : 9999
-							});
+							
 							player.addEventListener('complete', function() {
 								win.close();
 							});
@@ -96,7 +104,7 @@ module.exports = function() {
 									height : 20
 								}));
 							});
-							win.add(bg);
+
 							win.add(player);
 
 							/*win.add(Ti.UI.createLabel({
@@ -116,7 +124,8 @@ module.exports = function() {
 					}
 				});
 				return;
-			} else win.close();
+			} else
+				win.close();
 		});
 		win.add(web);
 		return;
