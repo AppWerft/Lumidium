@@ -5,21 +5,21 @@ module.exports = function(item) {
 		backgroundImage : item.image,
 		width : screenwidth,
 		height : screenwidth * 0.8,
-		top : 30
+		top : 0
 	});
 	page.add(page.image);
 
 	page.add(Ti.UI.createLabel({
 		text : item.title,
-		top : screenwidth * 0.8 + 50,
+		top : screenwidth * 0.8+5,
 		touchEnabled : false,
-		color : '#ff6',
+		color : '#ff6',textAlign:'left',
 		width : Ti.UI.FILL,
-		left : 20,
-		right : 20,
+		left : -15,
+		right : 5,
 
 		font : {
-			fontSize : 48,
+			fontSize : 56,
 			fontFamily : 'Sigward'
 		}
 	}));
