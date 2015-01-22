@@ -6,15 +6,15 @@ module.exports = function() {
 				var r = Ti.UI.createAlertDialog({
 					cancel : 1,
 					buttonNames : ["Zum Store", "Abbruch"],
-					message : "Es gibt eine neue Version im Playstore.\n\nDiese App auf dem " + Ti.Platform.model + " von " + Ti.Platform.manufacturer + " hat die Version " + Ti.App.getVersion() + " – im Store ist derweil " + version + ".\n\nMöchtest Du erneuern?",
-					title : "Neue Version Lumidium"
+					message : "Es gibt eine neue Version im Playstore.\n\nDiese App auf dem " + Ti.Platform.model +  ' hat die Version ' + Ti.App.getVersion() + "\n\nIm Store ist  " + version + ".\n\nMöchtest Du erneuern?",
+					title : "Neue Version „"+Ti.App.getName()+"“"
 				});
 				r.addEventListener("click", function(t) {
 					t.index != t.source.cancel && Ti.Platform.openURL(e);
 				}), r.show();
 			} else
 				Ti.Android && Ti.UI.createNotification({
-					message : "Lumidium ist in neuester Version (" + Ti.App.getVersion() + ")"
+					message : Ti.App.getName() +" ist in neuester Version (" + Ti.App.getVersion() + ")"
 				}).show();
 		}
 	});

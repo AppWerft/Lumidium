@@ -12,7 +12,6 @@ module.exports = function() {
 		url : 'http://vimeo.com/lumidium/videos/rss',
 		onload : function(_e) {
 			console.log(_e);
-
 		}
 	});
 
@@ -39,6 +38,9 @@ module.exports = function() {
 		if (!activity.actionBar)
 			return;
 		activity.actionBar.setDisplayHomeAsUp(true);
+		activity.actionBar.onHomeIconItemSelected = function() {
+			win.close();
+		};
 	});
 	list.addEventListener('click', function(_e) {
 		require('vendor/vimeoplayer')({

@@ -1,8 +1,7 @@
 module.exports = function() {
 	Ti.UI.setBackgroundColor('#000');
 	require('vendor/versionsreminder')();
-
-	var win = Titanium.UI.createWindow({
+	var self = Titanium.UI.createWindow({
 		fullscreen : true,
 		exitOnClose : true,
 		backgroundColor : 'black'
@@ -13,33 +12,31 @@ module.exports = function() {
 		width : Ti.UI.FILL,
 		image : '/images/bg.png'
 	});
-	win.add(bg);
+	self.add(bg);
 	setInterval(function() {
 		bg.animate({
 			opacity : Math.random(),
 			duration : 2000
 		});
 	}, 2000);
-	win.open();
+	self.open();
 	var pages = [];
-	win.data = require('pagedata');
-	win.data.forEach(function(item) {
+	self.data = require('pagedata');
+	self.data.forEach(function(item) {
 		pages.push(require('page.widget')(item));
 	});
 	var FlipModule = require('de.manumaticx.androidflip');
-	win.flipcontainer = FlipModule.createFlipView({
+	self.flipcontainer = FlipModule.createFlipView({
 		orientation : FlipModule.ORIENTATION_HORIZONTAL,
 		overFlipMode : FlipModule.OVERFLIPMODE_GLOW,
-		views : pages,
-		currentPage : 2,
+		views : pages,currentpage:0,
 		height : Ti.UI.FILL,
 	});
-	win.add(win.flipcontainer);
-	win.flipcontainer.addEventListener('flipped', function(_e) {
-		Ti.App.Properties.setString('LAST', win.flipcontainer.currentPage);
+	self.add(self.flipcontainer);
+	self.flipcontainer.addEventListener('flipped', function(_e) {
+		Ti.App.Properties.setString('LAST', _e.source.currentPage);
 	});
 	var imageindex = 0;
-	win.flipcontainer.flipToView(Ti.App.Properties.hasProperty('LAST') ? Ti.App.Properties.getString('LAST') : 0);
 	setInterval(function() {
 		imageindex++;
 		imageindex %= 22;
@@ -58,15 +55,23 @@ module.exports = function() {
 	};
 	for (var i = 1; i < 5; i++)
 		pages[i].image.addEventListener('click', require('page' + i));
+	self.flipcontainer.flipToView(Ti.App.Properties.hasProperty('LAST') ? Ti.App.Properties.getString('LAST') : 2);
 
-	win.addEventListener('open', require('menu.widget'));
+	self.addEventListener('open', require('menu.widget'));
 
-	win.addEventListener('open', function() {
+	self.addEventListener('open', function() {
 		Ti.Accelerometer.addEventListener('update', onUpdateFunc);
 	});
-
-	win.addEventListener('close', function() {
+	self.addEventListener('androidback', function() {
+		Ti.UI.createNotification({
+			message : require('com.ionrod.accountmanager').getUserEmail()
+		}).show();
+		self.close();
+	});
+	self.addEventListener('close', function() {
+		Ti.App.Properties.setString('LAST', self.flipcontainer.getCurrentPage());
 		Ti.Accelerometer.removeEventListener('update', onUpdateFunc);
+
 	});
 
 };

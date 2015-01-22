@@ -2,7 +2,7 @@
 <ti:app xmlns:ti="http://ti.appcelerator.org">
     <id>de.appwerft.lumidium</id>
     <name>Lumidium</name>
-    <version>1.0.19</version>
+    <version>1.0.21</version>
     <publisher>fuerst</publisher>
     <url>http://</url>
     <description>undefined</description>
@@ -41,7 +41,7 @@
         </plist>
     </ios>
     <android xmlns:android="http://schemas.android.com/apk/res/android">
-        <manifest android:versionCode="19" android:versionName="1.0.19">
+        <manifest android:versionCode="21" android:versionName="1.0.21">
             <application android:theme="@style/Theme.Lumidium"/>
             <uses-feature android:name="android.hardware.sensor.compass"/>
             <uses-permission android:name="android.permission.CAMERA"/>
@@ -55,6 +55,7 @@
         <module platform="android">com.alcoapps.actionbarextras</module>
         <module platform="android">ti.light</module>
         <module platform="commonjs" version="0.7.0">superagent</module>
+        <module platform="android">com.ionrod.accountmanager</module>
     </modules>
     <deployment-targets>
         <target device="android">true</target>
