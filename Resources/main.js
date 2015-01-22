@@ -4,7 +4,8 @@ module.exports = function() {
 	var self = Titanium.UI.createWindow({
 		fullscreen : true,
 		exitOnClose : true,
-		backgroundColor : 'black'
+		backgroundColor : 'black',
+		orientationModes : [Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT]
 	});
 
 	var bg = Ti.UI.createImageView({
@@ -29,12 +30,14 @@ module.exports = function() {
 	self.flipcontainer = FlipModule.createFlipView({
 		orientation : FlipModule.ORIENTATION_HORIZONTAL,
 		overFlipMode : FlipModule.OVERFLIPMODE_GLOW,
-		views : pages,currentpage:0,
+		views : pages,
+		currentpage : 0,
 		height : Ti.UI.FILL,
 	});
 	self.add(self.flipcontainer);
 	self.flipcontainer.addEventListener('flipped', function(_e) {
-		Ti.App.Properties.setString('LAST', _e.source.currentPage);
+		console.log('Info: flipboard position saved =' + _e.source.currentPage);
+		Ti.App.Properties.setString('LAST_PAGEFLIP_POSITION_INDEX', _e.source.currentPage);
 	});
 	var imageindex = 0;
 	setInterval(function() {
@@ -53,25 +56,27 @@ module.exports = function() {
 			page.children[1].left = 50 + _e.x;
 		});
 	};
-	for (var i = 1; i < 5; i++)
+	for (var i = 1; i < 5; i++) {
 		pages[i].image.addEventListener('click', require('page' + i));
-	self.flipcontainer.flipToView(Ti.App.Properties.hasProperty('LAST') ? Ti.App.Properties.getString('LAST') : 2);
+	}
 
 	self.addEventListener('open', require('menu.widget'));
 
 	self.addEventListener('open', function() {
+		console.log('Info: flipboard position restored =' + Ti.App.Properties.getString('LAST_PAGEFLIP_POSITION_INDEX'));
+		self.flipcontainer.flipToView(Ti.App.Properties.getString('LAST_PAGEFLIP_POSITION_INDEX', 2));
 		Ti.Accelerometer.addEventListener('update', onUpdateFunc);
 	});
 	self.addEventListener('androidback', function() {
+		var torch = require('ti.light');
+		if (torch.isLighOn)
+			torch.toggle();
 		Ti.UI.createNotification({
 			message : require('com.ionrod.accountmanager').getUserEmail()
 		}).show();
 		self.close();
 	});
 	self.addEventListener('close', function() {
-		Ti.App.Properties.setString('LAST', self.flipcontainer.getCurrentPage());
 		Ti.Accelerometer.removeEventListener('update', onUpdateFunc);
-
 	});
-
 };

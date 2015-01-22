@@ -1,9 +1,18 @@
+var screenheight = Ti.Platform.displayCaps.platformHeight,
+    screenwidth = Ti.Platform.displayCaps.platformWidth;
+if (Ti.Android) {
+	screenheight *= (160 / Ti.Platform.displayCaps.ydpi);
+	screenwidth *= (160 / Ti.Platform.displayCaps.xdpi);
+}
+
 module.exports = function() {
-	var self = Ti.UI.createWindow({
-		fullscreen : true,
-		navBarHidden : true,
-		orientationModes : [Ti.UI.LANDSCAPE_LEFT, Ti.UI.LANDSCAPE_RIGHT]
-	});
+	var self = require('w')();
+	self.backgroundColor = 'black';
+	/*var container = Ti.UI.createWebView({
+	 url : '/marquee.html',
+
+	 enableZoomControls : false
+	 });*/
 	var container = Ti.UI.createScrollView({
 		scrollType : 'horizontal',
 		height : Ti.UI.FILL,
@@ -21,18 +30,14 @@ module.exports = function() {
 			fontFamily : 'Sigward'
 		}
 	});
+	var x=0;
 	container.add(message);
 	function marquee() {
-		console.log('Start animation');
-		message.setLeft(0);
-		message.animate({
-			left : -1.5 * screenheight,
-			//autoreverse:true,
-			repeat : 10,
-			duration : 20000
-		});
+		message.setLeft(x);
+		x -=18;
 	}
 
-	marquee();
+	setInterval(marquee,500);
 	return self;
-}; 
+
+};

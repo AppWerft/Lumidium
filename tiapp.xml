@@ -47,6 +47,14 @@
             <uses-permission android:name="android.permission.CAMERA"/>
             <uses-feature android:name="android.hardware.camera"/>
         </manifest>
+        <application>
+            <activity android:configChanges="keyboardHidden"
+                android:name="org.appcelerator.titanium.TiActivity" android:screenOrientation="sensorPortrait"/>
+            <activity android:configChanges="keyboardHidden"
+                android:name="ti.modules.titanium.ui.TiTabActivity" android:screenOrientation="sensorPortrait"/>
+            <activity android:configChanges="keyboardHidden"
+                android:name="org.appcelerator.titanium.TiActivity" android:screenOrientation="sensorPortrait"/>
+        </application>
     </android>
     <modules>
         <module platform="android">de.manumaticx.androidflip</module>

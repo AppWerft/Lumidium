@@ -4,7 +4,12 @@ var torch = require('ti.light');
 module.exports = function(_e) {
 	var win = _e.source;
 	var data = win.data;
-	
+	win.addEventListener('close', function() {
+		var torch = require('ti.light');
+		if (torch.isLighOn)
+			torch.toggle();
+	});
+	torch.isLighOn && torch.toggle();
 	abx.title = "L u m i d i u m";
 	abx.subtitle = "the element of light";
 	abx.titleFont = "Sigward.ttf";
@@ -25,11 +30,19 @@ module.exports = function(_e) {
 				icon : Ti.App.Android.R.drawable.ic_action_flash,
 				showAsAction : Ti.Android.SHOW_AS_ACTION_ALWAYS,
 			}).addEventListener("click", function(_e) {
-				torch.toggle();
-				Ti.UI.createNotification({
-					message : 'Licht sollte jetzt ' + (torch.isOn() ? 'an' : 'aus') + ' sein.'
-				}).show();
+				setInterval(function() {
+					torch.toggle();
+				}, 500);
+
 			});
+			/*
+			 e.menu.add({
+			 title : 'ABC',
+			 icon : Ti.App.Android.R.drawable.ic_action_abc,
+			 showAsAction : Ti.Android.SHOW_AS_ACTION_ALWAYS,
+			 }).addEventListener("click", function(_e) {
+			 require('marquee.window')().open();
+			 });*/
 			data.forEach(function(item, i) {
 				e.menu.add({
 					title : item.title,

@@ -22,7 +22,7 @@ module.exports = function(item) {
 		touchEnabled : false,
 		color : '#ff6',
 		textAlign : 'left',
-		width : Ti.UI.FILL,
+		width : screenwidth*1.2,
 		left : -15,
 		right : 5,
 

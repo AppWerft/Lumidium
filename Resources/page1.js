@@ -1,6 +1,5 @@
 module.exports = function() {
 	var self = require('w')();
-
 	var get_yt_clip = require('vendor/get_yt_clip');
 	get_yt_clip('RpDenGL8oAw', function(_res) {
 		if (_res != null) {
@@ -20,10 +19,19 @@ module.exports = function() {
 				url : url
 			});
 			self.add(self.videoplayer);
+			self.add(Ti.UI.createImageView({
+				top : 15,
+				right : 5,
+				opacity : 0.4,
+				zIndex : 9999,
+				image : '/images/youtube.png',
+				width : 40,
+				height : 40
+			}));
 			self.videoplayer.addEventListener('complete', function() {
 				self.close();
 			});
 		}
 	});
 	self.open();
-};
+}; 
