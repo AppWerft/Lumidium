@@ -1,3 +1,3 @@
-(function() {
-	require('main')();
-})();
+!function() {
+	require('main')().open();
+}();

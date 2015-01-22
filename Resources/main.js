@@ -20,7 +20,7 @@ module.exports = function() {
 			duration : 2000
 		});
 	}, 2000);
-	self.open();
+	
 	var pages = [];
 	self.data = require('pagedata');
 	self.data.forEach(function(item) {
@@ -59,9 +59,7 @@ module.exports = function() {
 	for (var i = 1; i < 5; i++) {
 		pages[i].image.addEventListener('click', require('page' + i));
 	}
-
 	self.addEventListener('open', require('menu.widget'));
-
 	self.addEventListener('open', function() {
 		console.log('Info: flipboard position restored =' + Ti.App.Properties.getString('LAST_PAGEFLIP_POSITION_INDEX'));
 		self.flipcontainer.flipToView(Ti.App.Properties.getString('LAST_PAGEFLIP_POSITION_INDEX', 2));
@@ -79,4 +77,5 @@ module.exports = function() {
 	self.addEventListener('close', function() {
 		Ti.Accelerometer.removeEventListener('update', onUpdateFunc);
 	});
+	return self;
 };
