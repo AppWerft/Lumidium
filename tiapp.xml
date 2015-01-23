@@ -2,7 +2,7 @@
 <ti:app xmlns:ti="http://ti.appcelerator.org">
     <id>de.appwerft.lumidium</id>
     <name>Lumidium</name>
-    <version>1.0.21</version>
+    <version>1.0.24</version>
     <publisher>fuerst</publisher>
     <url>http://</url>
     <description>undefined</description>
@@ -41,20 +41,20 @@
         </plist>
     </ios>
     <android xmlns:android="http://schemas.android.com/apk/res/android">
-        <manifest android:versionCode="21" android:versionName="1.0.21">
+        <manifest android:versionCode="24" android:versionName="1.0.24">
             <application android:theme="@style/Theme.Lumidium"/>
             <uses-feature android:name="android.hardware.sensor.compass"/>
             <uses-permission android:name="android.permission.CAMERA"/>
             <uses-feature android:name="android.hardware.camera"/>
+            <application>
+                <activity android:configChanges="keyboardHidden"
+                    android:name="org.appcelerator.titanium.TiActivity" android:screenOrientation="sensorPortrait"/>
+                <activity android:configChanges="keyboardHidden"
+                    android:name="ti.modules.titanium.ui.TiTabActivity" android:screenOrientation="sensorPortrait"/>
+                <activity android:configChanges="keyboardHidden"
+                    android:name="org.appcelerator.titanium.TiActivity" android:screenOrientation="sensorPortrait"/>
+            </application>
         </manifest>
-        <application>
-            <activity android:configChanges="keyboardHidden"
-                android:name="org.appcelerator.titanium.TiActivity" android:screenOrientation="sensorPortrait"/>
-            <activity android:configChanges="keyboardHidden"
-                android:name="ti.modules.titanium.ui.TiTabActivity" android:screenOrientation="sensorPortrait"/>
-            <activity android:configChanges="keyboardHidden"
-                android:name="org.appcelerator.titanium.TiActivity" android:screenOrientation="sensorPortrait"/>
-        </application>
     </android>
     <modules>
         <module platform="android">de.manumaticx.androidflip</module>
@@ -64,6 +64,10 @@
         <module platform="android">ti.light</module>
         <module platform="commonjs" version="0.7.0">superagent</module>
         <module platform="android">com.ionrod.accountmanager</module>
+        <module platform="iphone">ti.draggable</module>
+        <module platform="android">ti.draggable</module>
+        <module platform="android">ti.mely</module>
+        <module platform="iphone">ti.mely</module>
     </modules>
     <deployment-targets>
         <target device="android">true</target>

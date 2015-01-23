@@ -20,7 +20,7 @@ module.exports = function() {
 			duration : 2000
 		});
 	}, 2000);
-	
+
 	var pages = [];
 	self.data = require('pagedata');
 	self.data.forEach(function(item) {
@@ -52,8 +52,17 @@ module.exports = function() {
 
 	var onUpdateFunc = function(_e) {
 		bg.setBottom(5 * _e.y - 100);
+		
 		pages.forEach(function(page) {
-			page.children[1].left = 50 + _e.x;
+			var animation = Ti.UI.createAnimation({
+			transform : Ti.UI.create2DMatrix({
+				scale : _e.x/2+.3,
+				duration : 50,
+				rotate : Math.random() * 3 - 1.80
+			})
+		});
+			page.children[1].left = 10 + _e.x;
+			page.children[1].animate(animation);
 		});
 	};
 	for (var i = 1; i < 5; i++) {

@@ -1,10 +1,9 @@
 var screenheight = Ti.Platform.displayCaps.platformHeight,
     screenwidth = Ti.Platform.displayCaps.platformWidth;
 if (Ti.Android) {
-	screenheight *= (160 / Ti.Platform.displayCaps.ydpi);
-	screenwidth *= (160 / Ti.Platform.displayCaps.xdpi);
+    screenheight *= (160 / Ti.Platform.displayCaps.ydpi);
+    screenwidth *= (160 / Ti.Platform.displayCaps.xdpi);
 }
-
 module.exports = function(item) {
 	var page = Ti.UI.createView({
 	});
@@ -15,17 +14,15 @@ module.exports = function(item) {
 		top : 0
 	});
 	page.add(page.image);
-
 	page.add(Ti.UI.createLabel({
 		text : item.title,
 		top : screenwidth * 0.8 + 5,
 		touchEnabled : false,
 		color : '#ff6',
 		textAlign : 'left',
-		width : screenwidth*1.2,
-		left : -15,
-		right : 5,
-
+		width : screenwidth,
+		left : -100,
+		right : 50,
 		font : {
 			fontSize : 56,
 			fontFamily : 'Sigward'
