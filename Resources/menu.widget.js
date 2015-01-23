@@ -15,11 +15,11 @@ module.exports = function(_e) {
         activity.onCreateOptionsMenu = function(e) {
             e.menu.clear();
             e.menu.add({
-                title : 'FLASH',
-                icon : Ti.App.Android.R.drawable.ic_action_flash,
+                title : 'morse factory',
+                icon : Ti.App.Android.R.drawable.ic_action_morse,
                 showAsAction : Ti.Android.SHOW_AS_ACTION_ALWAYS,
             }).addEventListener("click", function(_e) {
-                require('flash.window')().open();
+                require('morse.window')().open();
             });
             e.menu.add({
                 title : 'vimeo',

@@ -1,5 +1,10 @@
 var torch = require('ti.light');
 var Draggable = require('ti.draggable');
+var abx = require('com.alcoapps.actionbarextras');
+var speechrecognizerModule = require('jp.isisredirect.speechrecognizer');
+var speechrecognizer = speechrecognizerModule.createSpeechRecognizer();
+speechrecognizer['language_preference'] = Ti.Locale.getCurrentLocale();
+var morse = require('morse');
 
 module.exports = function() {
     var win = Titanium.UI.createWindow({
@@ -7,6 +12,29 @@ module.exports = function() {
         backgroundColor : 'black',
         orientationModes : [Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT]
     });
+    speechrecognizer.addEventListener(speechrecognizerModule.READYFORSPEECH, function(e) {
+        Ti.UI.createNotification({
+            message : 'Ready for speech.'
+        }).show();
+        // conTextField.value += e.type +"\n";
+    });
+    speechrecognizer.addEventListener(speechrecognizerModule.RESULTS, function(e) {
+        console.log(e.results);
+        if (e.results && e.results.split(',')[0]) {
+            var opts = {
+                options : e.results.split(','),
+                title : 'Possible interpretations'
+            };
+            Ti.UI.createOptionDialog(opts).show();
+        } else
+            Ti.UI.createNotification({
+                message : 'Nothing to understand …'
+            }).show();
+        speechrecognizer.stop();
+
+    });
+    if (!torch.isSupported())
+        win.close();
     win.add(Ti.UI.createImageView({
         image : '/images/flashbg.png',
         width : Ti.UI.FILL,
@@ -20,19 +48,16 @@ module.exports = function() {
         height : 100
     });
     win.add(blitz);
-    var abx = require('com.alcoapps.actionbarextras');
     var crons = [];
-    var cron = setInterval(function() {
-        if (torch.isSupported()) {
-            torch.turnOn();
-           // blitz.opacity = 1;
-            setTimeout(function() {
-                torch.turnOff();
-                      }, 5);
-        }
+    /*var cron = setInterval(function() {
+     var torch = require('ti.light');
+     torch.turnOn();
+     setTimeout(function() {
+     torch.turnOff();
+     }, 10);
 
-    }, 100);
-    crons.push(cron);
+     }, 500);
+     crons.push(cron);*/
     win.addEventListener('close', function() {
         crons.forEach(function(cron) {
             clearInterval(cron);
@@ -42,7 +67,7 @@ module.exports = function() {
     torch.isSupported() && torch.turnOff();
     win.addEventListener('open', function() {
         abx.title = "L u m i d i u m";
-        abx.subtitle = "flash factory";
+        abx.subtitle = "morse factory";
         abx.titleFont = "Sigward.ttf";
         abx.titleColor = "#ff9";
         var activity = win.getActivity();
@@ -53,5 +78,7 @@ module.exports = function() {
             win.close();
         };
     });
+    speechrecognizer.setAction(1);
+    speechrecognizer.start();
     return win;
 };

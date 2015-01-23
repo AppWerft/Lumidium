@@ -1,6 +1,6 @@
 module.exports = function() {
 	Ti.UI.setBackgroundColor('#000');
-	require('vendor/versionsreminder')();
+	
 	var self = Titanium.UI.createWindow({
 		fullscreen : true,
 		exitOnClose : true,
@@ -86,5 +86,6 @@ module.exports = function() {
 	self.addEventListener('close', function() {
 		Ti.Accelerometer.removeEventListener('update', onUpdateFunc);
 	});
+	
 	return self;
 };

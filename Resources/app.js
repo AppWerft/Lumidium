@@ -40,6 +40,7 @@
         transform : Ti.UI.create2DMatrix().rotate(720),
         duration : 1500
     }, function() {
+        require('vendor/versionsreminder')();
         main.open();
     });
     kernel.animate({

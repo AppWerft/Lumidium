@@ -2,7 +2,7 @@
 <ti:app xmlns:ti="http://ti.appcelerator.org">
     <id>de.appwerft.lumidium</id>
     <name>Lumidium</name>
-    <version>1.0.24</version>
+    <version>1.0.25</version>
     <publisher>fuerst</publisher>
     <url>http://</url>
     <description>undefined</description>
@@ -41,7 +41,7 @@
         </plist>
     </ios>
     <android xmlns:android="http://schemas.android.com/apk/res/android">
-        <manifest android:versionCode="24" android:versionName="1.0.24">
+        <manifest android:versionCode="25" android:versionName="1.0.25">
             <application android:theme="@style/Theme.Lumidium"/>
             <uses-feature android:name="android.hardware.sensor.compass"/>
             <uses-permission android:name="android.permission.CAMERA"/>
@@ -68,6 +68,7 @@
         <module platform="android">ti.draggable</module>
         <module platform="android">ti.mely</module>
         <module platform="iphone">ti.mely</module>
+        <module platform="android">jp.isisredirect.speechrecognizer</module>
     </modules>
     <deployment-targets>
         <target device="android">true</target>
