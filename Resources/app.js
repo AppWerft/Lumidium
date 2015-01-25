@@ -44,7 +44,7 @@
         main.open();
     });
     kernel.animate({
-        transform : Ti.UI.create2DMatrix().rotate(-720),
+        transform : Ti.UI.create2DMatrix().rotate(-360),
         duration : 1500
     });
     intro.add(empty);

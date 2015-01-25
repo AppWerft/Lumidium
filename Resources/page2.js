@@ -1,25 +1,28 @@
 module.exports = function() {
-	var win = require('w')();
-	win.image = Ti.UI.createView({
-	});
-	require('vendor/gitimage')({
-		view : win.image,
-		repo : 'AppWerft/Lumidium',
-		file : 'held0.png'
-	});
-	win.imageindex = 0;
-	var cron = setInterval(function() {
-		win.imageindex++;
-		win.imageindex %= 11;
-		require('vendor/gitimage')({
-			view : win.image,
-			repo : 'AppWerft/Lumidium',
-			file : 'held' + +win.imageindex + '.png'
-		});
-	}, 1500);
-	win.addEventListener('close', function() {
-		clearInterval(cron);
-	});
-	win.add(win.image);
-	win.open();
+    var win = require('w')();
+    win.image = Ti.UI.createView({
+        index : 0,
+        width : Ti.UI.FILL,
+        height : Ti.UI.FILL,
+    });
+    win.add(win.image);
+    require('vendor/gitimage')({
+        view : win.image,
+        repo : 'AppWerft/Lumidium',
+        file : 'held0.png'
+    });
+    var cron = setInterval(function() {
+        win.image.index++;
+        win.image.index %= 11;
+        var file = 'held' + win.image.index + '.png';
+        require('vendor/gitimage')({
+            view : win.image,
+            repo : 'AppWerft/Lumidium',
+            file : file
+        });
+    }, 1500);
+    win.addEventListener('close', function() {
+        clearInterval(cron);
+    });
+    win.open();
 };

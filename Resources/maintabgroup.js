@@ -52,7 +52,6 @@ module.exports = function() {
 
 	var onUpdateFunc = function(_e) {
 		bg.setBottom(5 * _e.y - 100);
-		
 		pages.forEach(function(page) {
 			var animation = Ti.UI.createAnimation({
 			transform : Ti.UI.create2DMatrix({
