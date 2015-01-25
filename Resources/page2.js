@@ -1,28 +1,26 @@
 module.exports = function() {
-    var win = require('w')();
-    win.image = Ti.UI.createView({
+    var self = require('w')();
+    self.open();
+    self.image = Ti.UI.createView({
         index : 0,
         width : Ti.UI.FILL,
         height : Ti.UI.FILL,
     });
-    win.add(win.image);
+    self.add(self.image);
     require('vendor/gitimage')({
-        view : win.image,
+        view : self.image,
         repo : 'AppWerft/Lumidium',
         file : 'held0.png'
     });
-    var cron = setInterval(function() {
-        win.image.index++;
-        win.image.index %= 11;
-        var file = 'held' + win.image.index + '.png';
+    self.cronFunc = function() {
+        self.image.index++;
+        self.image.index %= 11;
         require('vendor/gitimage')({
-            view : win.image,
+            view : self.image,
             repo : 'AppWerft/Lumidium',
-            file : file
+            file : 'held' + self.image.index + '.png'
         });
-    }, 1500);
-    win.addEventListener('close', function() {
-        clearInterval(cron);
-    });
-    win.open();
+        self.cron = setTimeout(self.cronFunc, 1500);
+    };
+    self.cron = setTimeout(self.cronFunc, 1500);
 };

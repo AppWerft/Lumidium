@@ -36,7 +36,6 @@ module.exports = function() {
 	});
 	self.add(self.flipcontainer);
 	self.flipcontainer.addEventListener('flipped', function(_e) {
-		console.log('Info: flipboard position saved =' + _e.source.currentPage);
 		Ti.App.Properties.setString('LAST_PAGEFLIP_POSITION_INDEX', _e.source.currentPage);
 	});
 	var imageindex = 0;
@@ -69,7 +68,6 @@ module.exports = function() {
 	}
 	self.addEventListener('open', require('menu.widget'));
 	self.addEventListener('open', function() {
-		console.log('Info: flipboard position restored =' + Ti.App.Properties.getString('LAST_PAGEFLIP_POSITION_INDEX'));
 		self.flipcontainer.flipToView(Ti.App.Properties.getString('LAST_PAGEFLIP_POSITION_INDEX', 2));
 		Ti.Accelerometer.addEventListener('update', onUpdateFunc);
 	});

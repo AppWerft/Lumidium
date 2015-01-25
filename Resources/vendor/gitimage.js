@@ -2,7 +2,7 @@ const PATH = 'https://raw.githubusercontent.com/AppWerft/Lumidium/master/assets/
 
 module.exports = function(options) {
     if (!options.folder)
-        options.folder = 'CACHE';
+        options.folder = 'ZWISCHENSPEICHER';
     if (!options.repo || !options.file || !options.view) {
         return;
     }
@@ -20,7 +20,6 @@ module.exports = function(options) {
         if (options.view.apiName == 'Ti.UI.ImageView') {
             options.view.setImage(file.read());
         } else {
-            console.log(file.nativePath);
             options.view.backgroundImage = file.nativePath;
         }
         return;
