@@ -14,6 +14,9 @@ function sayDah(onready) {
         setTimeout(onready,SPACE);
     },DAH);
 }
+function sayBreak(onready) {
+    setTimeout(onready,SPACE);
+}
 
 module.exports  = function(signal) {
     if (!signal) {
@@ -23,10 +26,13 @@ module.exports  = function(signal) {
     items.forEach(function(item){
         switch (item) {
             case '.':
+                sayDit(callbackFunc);
             break;
             case '-':
+                sayDah(callbackFunc);
             break;
             default:
+                sayBreak(callbackFunc);
             break;
         }
     });   
