@@ -26,20 +26,28 @@ module.exports  = function(args) {
         message = "-- --- .-. ... .";
     }
     function sayItem(item) {
+        if (item == undefined) return;
         switch (item) {
             case '.':
-                sayDit(sayItem);
+                sayDit(sayNext);
             break;
             case '-':
-                sayDah(sayItem);
+                sayDah(sayNext);
             break;
             case ' ' :
-                sayBreak(sayItem);
+                sayBreak(sayNext);
             break;
             default:
                 args.onready && args.onready();
             break;
         }
     }        
-    message.split('').forEach(sayItem);   
+    var items = message.split('');
+    function sayNext() {
+        var item = items.shift();  
+        if (item) {
+            sayItem(item);
+        } 
+    }
+    sayNext();
 };
