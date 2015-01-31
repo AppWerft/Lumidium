@@ -24,6 +24,7 @@ module.exports  = function(signal) {
     }
     var items = signal.split('');    
     items.forEach(function(item){
+        var callbackFunc = function() {};
         switch (item) {
             case '.':
                 sayDit(callbackFunc);
