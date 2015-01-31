@@ -41,7 +41,7 @@ module.exports = function(id) {
 				top : 10,
 				font : {
 					fontSize : 24,
-					fontFamily : 'Sigward'
+					fontFamily : 'Ohio-Collegiate'
 				}
 			}));
 			container.add(Ti.UI.createLabel({

@@ -50,7 +50,5 @@
     intro.add(empty);
     intro.add(kernel);
     intro.open();
-    require('morse.player')({
-        message : '--.-..--.--...-----'
-    });
+   
 }();

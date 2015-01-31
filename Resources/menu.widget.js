@@ -8,7 +8,7 @@ module.exports = function(_e) {
     
     abx.title = "L u m i d i u m";
     abx.subtitle = "the element of light";
-    abx.titleFont = "Sigward.ttf";
+    abx.titleFont = "Ohio-Collegiate.ttf";
     abx.titleColor = "#ff9";
     var activity = _e.source.getActivity();
     if (activity) {

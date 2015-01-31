@@ -71,6 +71,11 @@ module.exports = function() {
     win.add(list);
     if (!torch.isSupported())
         win.close();
+    list.addEventListener('click', function(_e) {
+        require('morse.player')({
+            message : _e.rowData.itemId
+        });
+    });
 
     var blitz = Draggable.createView({
         backgroundImage : 'images/flash.png',

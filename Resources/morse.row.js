@@ -1,6 +1,8 @@
 module.exports = function(text) {
-    var row= Ti.UI.createTableViewRow({
-        width : Ti.UI.SIZE
+    var row = Ti.UI.createTableViewRow({
+        width : Ti.UI.SIZE,
+        itemId : text
+
     });
     var views = [Ti.UI.createView({
         backgroundColor : 'orange'

@@ -1,5 +1,7 @@
-const TIME = {DIT : 100, DAH : 500, SPACE : 100};
+const TIME = {DIT : 50, DAH : 200, SPACE : 100};
 var Torch = require('ti.light');
+var morse = require('morse');
+
 function sayDit(onready) {
     Torch.turnOn();
     setTimeout(function(){
@@ -19,11 +21,18 @@ function sayBreak(onready) {
 }
 
 module.exports  = function(args) {
-    var message;
+    var message = '';
     if (args.message) { 
         message = args.message; 
     } else {
-        message = "-- --- .-. ... .";
+        message = "morsecode";
+    }
+   
+    function sayNext() {
+        var item = items.shift();  
+        if (item) {
+             sayItem(item);
+        } 
     }
     function sayItem(item) {
         if (item == undefined) return;
@@ -41,13 +50,12 @@ module.exports  = function(args) {
                 args.onready && args.onready();
             break;
         }
-    }        
-    var items = message.split('');
-    function sayNext() {
-        var item = items.shift();  
-        if (item) {
-            sayItem(item);
-        } 
+    }  
+    var morsecode = '';      
+    for (var i=0; i<message.length; i++) {
+        morsecode += morse[message[i].toLowerCase()];
     }
+    var items = morsecode.split('');
+    
     sayNext();
 };
