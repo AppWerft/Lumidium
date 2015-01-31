@@ -30,7 +30,7 @@ module.exports  = function(signal) {
             case '-':
                 sayDah(sayItem);
             break;
-            default:
+            case ' ' :
                 sayBreak(sayItem);
             break;
         }
