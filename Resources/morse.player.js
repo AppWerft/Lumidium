@@ -18,9 +18,12 @@ function sayBreak(onready) {
     setTimeout(onready,TIME.SPACE);
 }
 
-module.exports  = function(signal) {
-    if (!signal) {
-        signal = "-- --- .-. ... .";
+module.exports  = function(args) {
+    var message;
+    if (args.message) { 
+        message = args.message; 
+    } else {
+        message = "-- --- .-. ... .";
     }
     function sayItem(item) {
         switch (item) {
@@ -33,7 +36,10 @@ module.exports  = function(signal) {
             case ' ' :
                 sayBreak(sayItem);
             break;
+            default:
+                args.onready && args.onready();
+            break;
         }
     }        
-    signal.split('').forEach(sayItem);   
+    message.split('').forEach(sayItem);   
 };
