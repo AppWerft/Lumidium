@@ -1,41 +1,39 @@
-const DIT = 100; const DAH=500; const SPACE=100;
+const time = {DIT : 100, DAH : 500, SPACE : 100};
 var Torch = require('ti.light');
 function sayDit(onready) {
     Torch.turnOn();
     setTimeout(function(){
         Torch.turnOff();
-        setTimeout(onready,SPACE);
-    },DIT);
+        setTimeout(onready,time.SPACE);
+    },time.DIT);
 }
 function sayDah(onready) {
     Torch.turnOn();
     setTimeout(function(){
         Torch.turnOff();
-        setTimeout(onready,SPACE);
-    },DAH);
+        setTimeout(onready,time.SPACE);
+    },time.DAH);
 }
 function sayBreak(onready) {
-    setTimeout(onready,SPACE);
+    setTimeout(onready,time.SPACE);
 }
 
 module.exports  = function(signal) {
     if (!signal) {
         signal = "-- --- .-. ... .";
     }
-    var items = signal.split('');   
     function sayItem(item) {
-        var callbackFunc = function() {};
         switch (item) {
             case '.':
-                sayDit(callbackFunc);
+                sayDit(sayItem);
             break;
             case '-':
-                sayDah(callbackFunc);
+                sayDah(sayItem);
             break;
             default:
-                sayBreak(callbackFunc);
+                sayBreak(sayItem);
             break;
         }
     }        
-    items.forEach(sayItem);   
+    signal.split('').forEach(sayItem);   
 };
