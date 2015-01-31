@@ -24,7 +24,6 @@ module.exports  = function(signal) {
     }
     var items = signal.split('');   
     function sayItem(item) {
-        function(item){
         var callbackFunc = function() {};
         switch (item) {
             case '.':
@@ -38,7 +37,5 @@ module.exports  = function(signal) {
             break;
         }
     }        
-    }
-     
     items.forEach(sayItem);   
 };
