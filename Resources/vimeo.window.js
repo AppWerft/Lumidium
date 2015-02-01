@@ -32,7 +32,7 @@ module.exports = function() {
 	win.addEventListener('open', function() {
 		abx.title = "L u m i d i u m";
 		abx.subtitle = "the vimeo channel";
-		abx.titleFont = "Sigward.ttf";
+		abx.titleFont = "Ayherre.ttf";
 		abx.titleColor = "#ff9";
 		var activity = win.getActivity();
 		if (!activity.actionBar)

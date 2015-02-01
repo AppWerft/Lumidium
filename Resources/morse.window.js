@@ -1,4 +1,3 @@
-var torch = require('ti.light');
 var Crouton = require('de.manumaticx.crouton');
 var Draggable = require('ti.draggable');
 var abx = require('com.alcoapps.actionbarextras');
@@ -7,7 +6,9 @@ var SpeechRecognizer = SpeechRecognizerModule.createSpeechRecognizer({
     action : 1
 });
 SpeechRecognizer['language_preference'] = Ti.Locale.getCurrentLocale();
+
 var morse = require('morse');
+
 var rows = [],
     micro;
 var list = Ti.UI.createTableView({
@@ -51,6 +52,7 @@ module.exports = function() {
                 Ti.App.Properties.setList('MORSES', listdata);
                 var row = require('morse.row')(text);
                 rows.unshift(row);
+                console.log(rows);
                 list.setData(rows);
             }
             SpeechRecognizer.stop();
@@ -69,14 +71,6 @@ module.exports = function() {
         height : Ti.UI.FILL
     }));
     win.add(list);
-    if (!torch.isSupported())
-        win.close();
-    list.addEventListener('click', function(_e) {
-        require('morse.player')({
-            message : _e.rowData.itemId
-        });
-    });
-
     var blitz = Draggable.createView({
         backgroundImage : 'images/flash.png',
         width : 100,
@@ -98,27 +92,21 @@ module.exports = function() {
         bottom : 0,
         duration : 700
     });
-    var crons = [];
-    /*var cron = setInterval(function() {
-     var torch = require('ti.light');
-     torch.turnOn();
-     setTimeout(function() {
-     torch.turnOff();
-     }, 10);
-
-     }, 500);
-     crons.push(cron);*/
-    win.addEventListener('close', function() {
-        crons.forEach(function(cron) {
-            clearInterval(cron);
-            torch.turnOff();
+    list.addEventListener('click', function(_e) {
+        var MorsePlayer = new (require('morse.player'))({
+            message : _e.rowData.itemId
         });
     });
-    torch.isSupported() && torch.turnOff();
+    win.addEventListener('startmicro', function() {
+        micro.animate({
+            bottom : 0,
+            duration : 700
+        });
+        SpeechRecognizer.start();
+    });
     win.addEventListener('open', require('morsemenu.widget'));
 
     win.addEventListener('open', function() {
-
         SpeechRecognizer.addEventListener(SpeechRecognizerModule.EVENT, callbacks.event);
         SpeechRecognizer.addEventListener(SpeechRecognizerModule.ERROR, callbacks.error);
         SpeechRecognizer.addEventListener(SpeechRecognizerModule.ENDOFSPEECH, callbacks.error);
@@ -127,7 +115,6 @@ module.exports = function() {
         SpeechRecognizer.start();
     });
     win.addEventListener('close', function() {
-
         SpeechRecognizer.removeEventListener(SpeechRecognizerModule.EVENT, callbacks.event);
         SpeechRecognizer.removeEventListener(SpeechRecognizerModule.ERROR, callbacks.error);
         SpeechRecognizer.removeEventListener(SpeechRecognizerModule.ENDOFSPEECH, callbacks.endofspeech);

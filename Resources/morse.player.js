@@ -1,30 +1,9 @@
 const TIME = {
     DIT : 50,
-    DAH : 200,
-    SPACE : 100
+    DAH : 150,
+    SPACE : 150
 };
 var Torch = require('ti.light');
-var morse = require('morse');
-
-function sayDit(onready) {
-    Torch.turnOn();
-    setTimeout(function() {
-        Torch.turnOff();
-        setTimeout(onready, TIME.SPACE);
-    }, TIME.DIT);
-}
-
-function sayDah(onready) {
-    Torch.turnOn();
-    setTimeout(function() {
-        Torch.turnOff();
-        setTimeout(onready, TIME.SPACE);
-    }, TIME.DAH);
-}
-
-function sayBreak(onready) {
-    setTimeout(onready, TIME.SPACE);
-}
 
 /*
  Parameters:
@@ -32,8 +11,10 @@ function sayBreak(onready) {
  onready : optional ready callback
  */
 
-module.exports = function() {
+var MorseModule = function() {
     var args = arguments[0] || {};
+    var torchavailable;
+    var window;
     var message = "";
     if (args.message) {
         message = args.message;
@@ -42,33 +23,76 @@ module.exports = function() {
     }
     var morsecode = "";
     for (var i = 0; i < message.length; i++) {
-        morsecode += morse[message[i].toLowerCase()];
+        morsecode += require('morse')[message[i].toLowerCase()];
     }
+    function sayDit(onready) {
+        Torch.turnOn();
+        window.backgroundColor = 'white';
+        setTimeout(function() {
+            window.backgroundColor = 'black';
+            Torch.turnOff();
+            setTimeout(onready, TIME.SPACE);
+        }, TIME.DIT);
+    }
+
+    function sayDah(onready) {
+        Torch.turnOn();
+        var that = this;
+        window.backgroundColor = 'white';
+        setTimeout(function() {
+            Torch.turnOff();
+            window.backgroundColor = 'black';
+            setTimeout(onready, TIME.SPACE);
+        }, TIME.DAH);
+    }
+
+    function sayBreak(onready) {
+        setTimeout(onready, TIME.SPACE);
+    }
+
     function sayNext() {
         var item = items.shift();
         if (item) {
             sayItem(item);
-        }
+        } else if (false == torchavailable)
+            window.close();
     }
+
     function sayItem(item) {
-        if (item == undefined)
-            return;
-        switch (item) {
-        case '.':
-            sayDit(sayNext);
-            break;
-        case '-':
-            sayDah(sayNext);
-            break;
-        case ' ' :
-            sayBreak(sayNext);
-            break;
-        default:
-            args.onready && args.onready();
-            break;
+        if (item != undefined) {
+            switch (item) {
+            case '.':
+                sayDit(sayNext);
+                break;
+            case '-':
+                sayDah(sayNext);
+                break;
+            case ' ' :
+                sayBreak(sayNext);
+                break;
+            default:
+                args.onready && args.onready();
+                break;
+            }
         }
     }
 
     var items = morsecode.split("");
+    window = Ti.UI.createWindow({
+        theme : 'Theme.NoActionBar',
+        fullscreen : true,
+        backgroundColor : 'black'
+    });
+    if (Ti.Platform.model.match(/nexus/i) || !Torch.isSupported()) {
+        Ti.UI.createNotification({
+            message : 'This ' + Ti.Platform.model + ' doesn\'t support flash light.'
+        }).show();
+        torchavailable = false;
+        window.open();
+    } else
+        torchavailable = true;
     sayNext();
+    return this;
 };
+
+module.exports = MorseModule;

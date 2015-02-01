@@ -20,7 +20,7 @@ module.exports = function(text) {
         color : '#ff9',
         font : {
             fontSize : 32,
-            fontFamily : 'Sigward'
+            fontFamily : 'Ayherre'
         }
     }));
     row.children[0].views[1].add(Ti.UI.createLabel({

@@ -8,7 +8,7 @@ module.exports = function(_e) {
 
     abx.title = "L u m i d i u m";
     abx.subtitle = "morse factory";
-    abx.titleFont = "Sigward.ttf";
+    abx.titleFont = "Ayherre.ttf";
     abx.titleColor = "#ff9";
     var activity = _e.source.getActivity();
 
@@ -24,7 +24,7 @@ module.exports = function(_e) {
                 icon : Ti.App.Android.R.drawable.ic_action_micro,
                 showAsAction : Ti.Android.SHOW_AS_ACTION_ALWAYS,
             }).addEventListener("click", function(_e) {
-                //     require('morse.window')().open();
+                 win.fireEvent('startmicro');
             });
         };
     }
