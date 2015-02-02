@@ -7,7 +7,6 @@ var SpeechRecognizer = SpeechRecognizerModule.createSpeechRecognizer({
 });
 SpeechRecognizer['language_preference'] = Ti.Locale.getCurrentLocale();
 
-var morse = require('morse');
 
 var rows = [],
     micro;
@@ -50,7 +49,7 @@ module.exports = function() {
                 var listdata = Ti.App.Properties.getList('MORSES') || [];
                 listdata.unshift(text);
                 Ti.App.Properties.setList('MORSES', listdata);
-                var row = require('morse.row')(text);
+                var row = require('morse/row')(text);
                 rows.unshift(row);
                 console.log(rows);
                 list.setData(rows);
@@ -93,7 +92,7 @@ module.exports = function() {
         duration : 700
     });
     list.addEventListener('click', function(_e) {
-        var MorsePlayer = new (require('morse.player'))({
+        var MorsePlayer = new (require('morse/player'))({
             message : _e.rowData.itemId
         });
     });
@@ -104,7 +103,7 @@ module.exports = function() {
         });
         SpeechRecognizer.start();
     });
-    win.addEventListener('open', require('morsemenu.widget'));
+    win.addEventListener('open', require('morse/menu.widget'));
 
     win.addEventListener('open', function() {
         SpeechRecognizer.addEventListener(SpeechRecognizerModule.EVENT, callbacks.event);

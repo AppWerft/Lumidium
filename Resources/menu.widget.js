@@ -19,7 +19,7 @@ module.exports = function(_e) {
                 icon : Ti.App.Android.R.drawable.ic_action_morse,
                 showAsAction : Ti.Android.SHOW_AS_ACTION_ALWAYS,
             }).addEventListener("click", function(_e) {
-                require('morse.window')().open();
+                require('morse/window')().open();
             });
             e.menu.add({
                 title : 'vimeo',

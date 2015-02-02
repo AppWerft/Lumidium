@@ -14,8 +14,10 @@ var Torch = require('ti.light');
 var MorseModule = function() {
     var args = arguments[0] || {};
     var torchavailable;
+    var self = this;
     var window;
     var message = "";
+    this.window = 'window';
     if (args.message) {
         message = args.message;
     } else {
@@ -23,7 +25,7 @@ var MorseModule = function() {
     }
     var morsecode = "";
     for (var i = 0; i < message.length; i++) {
-        morsecode += require('morse')[message[i].toLowerCase()];
+        morsecode += require('morse/code')[message[i].toLowerCase()];
     }
     function sayDit(onready) {
         Torch.turnOn();
@@ -37,7 +39,6 @@ var MorseModule = function() {
 
     function sayDah(onready) {
         Torch.turnOn();
-        var that = this;
         window.backgroundColor = 'white';
         setTimeout(function() {
             Torch.turnOff();
@@ -54,8 +55,8 @@ var MorseModule = function() {
         var item = items.shift();
         if (item) {
             sayItem(item);
-        } else if (false == torchavailable)
-            window.close();
+        }
+        window.close();
     }
 
     function sayItem(item) {
@@ -88,9 +89,10 @@ var MorseModule = function() {
             message : 'This ' + Ti.Platform.model + ' doesn\'t support flash light.'
         }).show();
         torchavailable = false;
-        window.open();
+
     } else
         torchavailable = true;
+    window.open();
     sayNext();
     return this;
 };

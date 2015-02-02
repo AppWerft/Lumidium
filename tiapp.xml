@@ -2,7 +2,7 @@
 <ti:app xmlns:ti="http://ti.appcelerator.org">
     <id>de.appwerft.lumidium</id>
     <name>Lumidium</name>
-    <version>1.0.34</version>
+    <version>1.0.36</version>
     <publisher>fuerst</publisher>
     <url>http://</url>
     <description>undefined</description>
@@ -41,7 +41,7 @@
         </plist>
     </ios>
     <android xmlns:android="http://schemas.android.com/apk/res/android">
-        <manifest android:versionCode="34" android:versionName="1.0.34">
+        <manifest android:versionCode="36" android:versionName="1.0.36">
             <application android:largeHeap="true" android:theme="@style/Theme.Lumidium"/>
             <uses-feature android:name="android.hardware.sensor.compass"/>
             <uses-permission android:name="android.permission.CAMERA"/>
